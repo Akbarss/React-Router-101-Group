@@ -11,6 +11,9 @@ const Header = () => {
         <NavLink to={"/about"} style={{ color: "#fff" }}>
           About
         </NavLink>
+        <NavLink to={"/test"} style={{ color: "#fff" }}>
+          Test
+        </NavLink>
       </div>
     </div>
   );
