@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 
-// Хук useEffect в React
-// Что такое useEffect?
-// Хук useEffect позволяет выполнять побочные эффекты в функциональных компонентах. Побочные эффекты включают:
-
-// Получение данных из API.
-// Подписки (например, на события).
-// Изменение документа (DOM).
-// Очистку ресурсов.
-
-const Timer = () => {
-  const [count, setCount] = useState(0);
+const ClickCounter = () => {
+  const [clickCount, setClickCount] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((prevCount) => prevCount + 1);
-    }, 1000);
+    const handleClick = () => {
+      setClickCount((prevCount) => prevCount + 1);
+    };
 
-    return () => clearInterval(interval);
-  }, []); // запускается только при монтировании
+    // Добавляем обработчик кликов
+    document.addEventListener("click", handleClick);
 
-  return <div>Счётчик: {count}</div>;
+    // Очищаем обработчик при размонтировании
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []); // Эффект запускается только при монтировании
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "20px" }}>
+      <h1>Счётчик кликов</h1>
+      <p>Количество кликов на странице: {clickCount}</p>
+    </div>
+  );
 };
 
-export default Timer;
+export default ClickCounter;
