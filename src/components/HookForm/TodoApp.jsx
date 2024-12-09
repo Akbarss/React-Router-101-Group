@@ -9,28 +9,24 @@ function TodoApp() {
     formState: { errors },
   } = useForm();
 
-  const [todos, setTodos] = useState([]); // Task list state
-  const [editingId, setEditingId] = useState(null); // ID of the task being edited
-  const [editingValue, setEditingValue] = useState(""); // Current editing value
+  const [todos, setTodos] = useState([]);
+  const [editingId, setEditingId] = useState(null);
+  const [editingValue, setEditingValue] = useState("");
 
-  // Add a new task
   const onSubmit = (data) => {
     setTodos((prevTodos) => [...prevTodos, { id: Date.now(), ...data }]);
     reset();
   };
 
-  // Delete a task
   const handleDelete = (id) => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
-  // Start editing a task
   const handleEdit = (id, currentValue) => {
     setEditingId(id);
     setEditingValue(currentValue);
   };
 
-  // Save the edited task
   const handleSave = (id) => {
     setTodos((prevTodos) => prevTodos.map((todo) => (todo.id === id ? { ...todo, task: editingValue } : todo)));
     setEditingId(null);
@@ -41,7 +37,6 @@ function TodoApp() {
     <div style={{ maxWidth: "500px", margin: "0 auto", textAlign: "center" }}>
       <h1>ToDo App</h1>
 
-      {/* Add Task Form */}
       <form onSubmit={handleSubmit(onSubmit)} style={{ marginBottom: "20px" }}>
         <div style={{ marginBottom: "10px" }}>
           <input
